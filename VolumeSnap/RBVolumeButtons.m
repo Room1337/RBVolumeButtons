@@ -29,6 +29,7 @@
 @synthesize downBlock;
 @synthesize launchVolume;
 @synthesize isStealingVolumeButtons = _isStealingVolumeButtons;
+@synthesize audioSessionCategory = _audioSessionCategory;
 @synthesize suspended = _suspended;
 @synthesize volumeView = _volumeView;
 
@@ -97,6 +98,7 @@ void volumeListenerCallback (
    {
       self.isStealingVolumeButtons = NO;
       self.suspended = NO;
+      self.audioSessionCategory = 0;
    }
    return self;
 }
@@ -112,6 +114,8 @@ void volumeListenerCallback (
     self.isStealingVolumeButtons = YES;
    
    AudioSessionInitialize(NULL, NULL, NULL, NULL);
+   if (_audioSessionCategory != 0)
+      AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(_audioSessionCategory), &_audioSessionCategory);
    AudioSessionSetActive(YES);
    
    launchVolume = [[MPMusicPlayerController applicationMusicPlayer] volume];

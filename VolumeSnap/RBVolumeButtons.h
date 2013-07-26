@@ -19,11 +19,15 @@ typedef void (^ButtonBlock)();
    BOOL _isStealingVolumeButtons;
    BOOL _suspended;
    UIView *_volumeView;
+   
+   UInt32 _audioSessionCategory;
 }
 
 @property (nonatomic, copy) ButtonBlock upBlock;
 @property (nonatomic, copy) ButtonBlock downBlock;
 @property (readonly) float launchVolume;
+@property (readonly) BOOL isStealingVolumeButtons;
+@property (nonatomic) UInt32 audioSessionCategory;
 
 -(void)startStealingVolumeButtonEvents;
 -(void)stopStealingVolumeButtonEvents;
